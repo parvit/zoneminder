@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - '*'
-  pull_request:
-    branches: [ fake-master ]
 
 permissions:
   contents: read
@@ -34,9 +32,6 @@ jobs:
           add-apt-repository ppa:git-core/ppa
           apt-get -qq update
           apt-get -qq install git
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
       - name: Install dependencies
         run: >
           apt-get -qq install make cmake g++
