@@ -45,6 +45,8 @@ jobs:
           libcurl4-gnutls-dev libvlc-dev libvncserver-dev
           libdate-manip-perl libdbd-mysql-perl libsys-mmap-perl libwww-perl
           libpolkit-gobject-1-dev
+          postgresql-13 postgresql-client-common postgresql-common postgresql-server-dev-all postgresql
+          libsoci-core4.0 libsoci-dev libsoci-core4.0postgresql4.0 libsoci-mysql4.0
           ${{ matrix.crypto_package }} ${{ matrix.jwt_package }}
       - name: Prepare
         run: mkdir build
