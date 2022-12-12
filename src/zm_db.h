@@ -31,7 +31,7 @@
 #include <stdexcept>
 #include <iostream>
 
-#include "soci.h"
+#include "soci/soci.h"
 
 #include "zm_db_types.h"
 
@@ -88,48 +88,6 @@ protected:
       }
     }
     return T();
-  }
-
-  // unsigned int is a special case in that representation actually differs between mysql and postgresql
-  template <>
-  unsigned int getFromResult<unsigned int>(soci::rowset_iterator<soci::row>* result_iter, const int position) {
-    try {
-      return getUnsignedIntColumn(result_iter, position);
-    }
-    catch (soci::soci_error const & e)
-    {
-      std::cerr << "Database exception: " << e.what() << std::endl;
-      switch( e.get_error_category() ){
-        case soci::soci_error::error_category::invalid_statement:
-        case soci::soci_error::error_category::no_privilege:
-        case soci::soci_error::error_category::system_error:
-          exit(-1);
-        default:
-          return 0;
-      }
-    }
-    return 0;
-  }
-
-  // unsigned int is a special case in that representation actually differs between mysql and postgresql
-  template <>
-  unsigned int getFromResult<unsigned int>(soci::rowset_iterator<soci::row>* result_iter, const std::string& name) {
-    try {
-      return getUnsignedIntColumn(result_iter, name);
-    }
-    catch (soci::soci_error const & e)
-    {
-      std::cerr << "Database exception: " << e.what() << std::endl;
-      switch( e.get_error_category() ){
-        case soci::soci_error::error_category::invalid_statement:
-        case soci::soci_error::error_category::no_privilege:
-        case soci::soci_error::error_category::system_error:
-          exit(-1);
-        default:
-          return 0;
-      }
-    }
-    return 0;
   }
 
   // unsigned int is a special case in that representation actually differs between mysql and postgresql

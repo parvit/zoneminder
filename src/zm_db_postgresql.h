@@ -27,8 +27,8 @@
 #include <cstdlib>
 
 
-#include "soci.h"
-#include "postgresql/soci-postgresql.h"
+#include "soci/soci.h"
+#include "soci/postgresql/soci-postgresql.h"
 
 class zmDbPostgreSQLAdapter : public zmDb {
 public:

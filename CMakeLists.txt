@@ -513,6 +513,7 @@ if(NOT ZM_NO_MQTT)
   else()
     set(optlibsnotfound "${optlibsnotfound} Mosquittopp")
   endif (MOSQUITTOPP_FOUND)
+endif()
 
 find_package(FFMPEG 55.34.100 REQUIRED
   COMPONENTS

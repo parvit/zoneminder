@@ -29,8 +29,8 @@
 #include <mysql/mysql.h>
 #include <mysql/mysqld_error.h>
 
-#include "soci.h"
-#include "mysql/soci-mysql.h"
+#include "soci/soci.h"
+#include "soci/mysql/soci-mysql.h"
 
 class zmDbMySQLAdapter : public zmDb {
 public:
