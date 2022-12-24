@@ -88,8 +88,8 @@ protected:
           exit(-1);
         default:
           return T();
-#endif
       }
+#endif
     }
     return T();
   }
