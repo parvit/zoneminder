@@ -38,6 +38,9 @@ public:
     ~zmDbMySQLAdapter();
     virtual uint64_t lastInsertID(const zmDbQueryID& queryId);
     virtual std::string realColumnName(const std::string& column);
+#if SOCI_VERSION < 400001 // before version 4.0.1 session::is_connected was not supported
+    virtual bool connected() override;
+#endif
 
 private:
     void prepareSelectStatements();

@@ -32,6 +32,7 @@
 #include <iostream>
 
 #include "soci/soci.h"
+#include "soci/version.h"
 
 #include "zm_db_types.h"
 
