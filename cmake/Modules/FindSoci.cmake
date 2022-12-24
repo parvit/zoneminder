@@ -34,18 +34,25 @@ SET(_SOCI_REQUIRED_VARS  SOCI_INCLUDE_DIR SOCI_LIBRARY)
 #
 FIND_PATH(
     SOCI_INCLUDE_DIR soci.h
-    PATH "/usr/local"
+    PATHS "/usr/local"
     PATH_SUFFIXES "" "soci"
     DOC "Soci (http://soci.sourceforge.net) include directory")
 MARK_AS_ADVANCED(SOCI_INCLUDE_DIR)
 
 SET(SOCI_INCLUDE_DIRS ${SOCI_INCLUDE_DIR})
 
-file(READ "${SOCI_INCLUDE_DIR}/soci/version.h" ver)
+FIND_PATH(
+    SOCI_VERSION_INCLUDE_DIR version.h
+    PATHS "${SOCI_INCLUDE_DIR}"
+    PATH_SUFFIXES "" "soci"
+    DOC "Soci (http://soci.sourceforge.net) version include directory")
+MARK_AS_ADVANCED(SOCI_VERSION_INCLUDE_DIR)
 
-string(REGEX MATCH "#define SOCI_VERSION ([0-9]+)" _ ${ver})
+FILE(READ "${SOCI_VERSION_INCLUDE_DIR}/version.h" soci_version)
 
-set(SOCI_VERSION ${CMAKE_MATCH_1})
+STRING(REGEX MATCH "#define SOCI_VERSION ([0-9]+)" _ ${soci_version})
+
+SET(SOCI_VERSION ${CMAKE_MATCH_1})
 
 #
 ### SECOND STEP: Find the soci core library. Respect LIB_SUFFIX
