@@ -6,7 +6,7 @@
 # This module defines:
 #  SOCI_INCLUDE_DIRS        = include dirs to be used when using the soci library
 #  SOCI_LIBRARY             = full path to the soci library
-#  SOCI_VERSION             = the soci version found (not yet. soci does not provide that info.)
+#  SOCI_VERSION             = numerical soci define from soci/version.h
 #  SOCI_FOUND               = true if soci was found
 #
 # This module respects:
@@ -40,6 +40,12 @@ FIND_PATH(
 MARK_AS_ADVANCED(SOCI_INCLUDE_DIR)
 
 SET(SOCI_INCLUDE_DIRS ${SOCI_INCLUDE_DIR})
+
+file(READ "${SOCI_INCLUDE_DIR}/soci/version.h" ver)
+
+string(REGEX MATCH "#define SOCI_VERSION ([0-9]+)" _ ${ver})
+
+set(SOCI_VERSION ${CMAKE_MATCH_1})
 
 #
 ### SECOND STEP: Find the soci core library. Respect LIB_SUFFIX

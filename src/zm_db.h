@@ -58,6 +58,7 @@ protected:
     catch (soci::soci_error const & e)
     {
       std::cerr << "Database exception: " << e.what() << std::endl;
+#if SOCI_VERSION >= 400003 // before version 4.0.3 error categories were not implemented
       switch( e.get_error_category() ){
         case soci::soci_error::error_category::invalid_statement:
         case soci::soci_error::error_category::no_privilege:
@@ -66,6 +67,7 @@ protected:
         default:
           return T();
       }
+#endif
     }
     return T();
   }
@@ -78,6 +80,7 @@ protected:
     catch (soci::soci_error const & e)
     {
       std::cerr << "Database exception: " << e.what() << std::endl;
+#if SOCI_VERSION >= 400003 // before version 4.0.3 error categories were not implemented
       switch( e.get_error_category() ){
         case soci::soci_error::error_category::invalid_statement:
         case soci::soci_error::error_category::no_privilege:
@@ -85,6 +88,7 @@ protected:
           exit(-1);
         default:
           return T();
+#endif
       }
     }
     return T();
