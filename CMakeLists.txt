@@ -375,10 +375,6 @@ endif()
 
 message(STATUS "Database components available: ${LIBSOCI_COMPONENTS}")
 
-find_package(Boost REQUIRED)
-include_directories("${Boost_INCLUDE_DIR}")
-set(CMAKE_REQUIRED_INCLUDES "${Boost_INCLUDE_DIR}")
-
 # Soci
 find_package(Soci COMPONENTS ${LIBSOCI_COMPONENTS})
 if(SOCI_FOUND)
@@ -389,6 +385,12 @@ if(SOCI_FOUND)
     message( FATAL_ERROR "Required minimum SOCI version: 300200 (3.2.0), found ${SOCI_VERSION}" )
   endif()
   message( STATUS, "SOCI VERSION: ${SOCI_VERSION}" )
+
+  if( SOCI_VERSION GREATER_EQUAL 400000 )
+    find_package(Boost REQUIRED)
+    include_directories("${Boost_INCLUDE_DIR}")
+    set(CMAKE_REQUIRED_INCLUDES "${Boost_INCLUDE_DIR}")
+  endif()
 
   if(SOCI_mysql_FOUND)
     set(HAVE_LIBSOCI_MYSQL 1)
