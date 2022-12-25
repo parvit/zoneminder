@@ -375,6 +375,10 @@ endif()
 
 message(STATUS "Database components available: ${LIBSOCI_COMPONENTS}")
 
+find_package(Boost REQUIRED)
+include_directories("${Boost_INCLUDE_DIR}")
+set(CMAKE_REQUIRED_INCLUDES "${Boost_INCLUDE_DIR}")
+
 # Soci
 find_package(Soci COMPONENTS ${LIBSOCI_COMPONENTS})
 if(SOCI_FOUND)
