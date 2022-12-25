@@ -161,7 +161,11 @@ uint64_t zmDbPostgreSQLAdapter::lastInsertID(const zmDbQueryID &queryId)
         return 0;
     }
 
+#if (SOCI_VERSION < 400000) // before version 4.0.0 IDs for sequences were not treated as 64bits
+    long id = 0;
+#else
     long long id = 0;
+#endif
     if (db.get_last_insert_id(autoIncrementTable[queryId], id))
         return id;
 

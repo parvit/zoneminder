@@ -31,8 +31,10 @@
 #include <stdexcept>
 #include <iostream>
 
+#pragma GCC diagnostic ignored "-Wuninitialized"
 #include "soci/soci.h"
 #include "soci/version.h"
+#pragma GCC diagnostic warning "-Wuninitialized"
 
 #include "zm_db_types.h"
 
@@ -145,6 +147,20 @@ public:
       if( result != nullptr )
         throw new std::runtime_error( "Invalid copy operation during result examination" );
     };
+
+  zmDbQuery& operator=(zmDbQuery other)
+  {
+    db = other.db;
+    id = other.id;
+    stmt = other.stmt;
+    exitOnError = other.exitOnError;
+    result = other.result;
+    result_iter = other.result_iter;
+    result_iter_end = other.result_iter_end;
+    deferred = std::vector< std::function<void ()> >(other.deferred.begin(), other.deferred.end());
+    executed = other.executed;
+    return *this;
+  }
 
   virtual ~zmDbQuery();
 

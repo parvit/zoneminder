@@ -168,7 +168,7 @@ uint64_t zmDbMySQLAdapter::lastInsertID(const zmDbQueryID &queryId)
         return 0;
     }
 
-#if (SOCI_VERSION < 400003) // before version 4.0.1 session::is_connected was not supported
+#if (SOCI_VERSION < 400000) // before version 4.0.0 IDs for sequences were not treated as 64bits
     long id = 0;
 #else
     long long id = 0;
