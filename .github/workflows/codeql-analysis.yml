@@ -51,7 +51,7 @@ jobs:
         
     - name: Check packages
       run: |
-        sudo cat /var/log/dist-upgrade/apt.log
+        sudo cat /var/log/apt/term.log
 
     - name: Clean install dependencies and build
       run: |
