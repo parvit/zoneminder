@@ -38,15 +38,18 @@ jobs:
             yum -y install make cmake g++
             yum -y install libavutil-free libavutil-free-devel libavcodec-free libavcodec-free-devel libavformat-free libavformat-free-devel libswresample-free libswresample-free-devel
             yum -y install libswscale-free libswscale-free-devel libavdevice-free libavdevice-free-devel libvncserver libvncserver-devel libcurl libcurl-devel
-            yum -y install libvncserver libvncserver-devel openssl-devel openssl-libs libjwt libjwt-devel libjpeg-turbo libjpeg-turbo-deve
-            yum -y install polkit polkit-devel polkit-libs
+            yum -y install libvncserver libvncserver-devel openssl-devel openssl-libs libjwt libjwt-devel libjpeg-turbo libjpeg-turbo-devel
+            yum -y install polkit polkit-devel polkit-libs catch22 catch-devel
             yum -y install perl-Date-Manip perl-DBD-MySQL perl-Sys-Mmap perl-libwww-perl perl-Sys-Syslog perl-Time-HiRes perl-ExtUtils-Depends perl-ExtUtils-MakeMaker
             yum -y install vlc-devel postgresql postgresql-server mariadb-devel
             yum -y install postgresql postgresql-server mariadb-devel
+            yum -y install boost boost-devel soci soci-devel soci-mysql soci-mysql-devel soci-postgresql soci-postgresql-devel
       - name: Prepare
         run: mkdir build
+      # note: jwt_cpp + openssl-3.0.5 are incompatible with ENABLE_WERROR=1 as it marks function definitions as deprecated
+      # also openssl cannot be downgraded otherwise devel packages for mariadb, libpq and soci get removed as well
       - name: Configure
-        run: cd build && cmake --version && cmake .. -DBUILD_MAN=0 -DBUILD_TEST_SUITE=1 -DENABLE_WERROR=1  -DZM_CRYPTO_BACKEND=${{ matrix.crypto_backend }} -DZM_JWT_BACKEND=${{ matrix.jwt_backend }}
+        run: cd build && cmake --version && cmake .. -DBUILD_MAN=0 -DBUILD_TEST_SUITE=1 -DENABLE_WERROR=0  -DZM_CRYPTO_BACKEND=${{ matrix.crypto_backend }} -DZM_JWT_BACKEND=${{ matrix.jwt_backend }}
       - name: Build
         run: cd build && make -j3 | grep --line-buffered -Ev '^(cp lib\/|Installing.+\.pm)' && (exit ${PIPESTATUS[0]})
       - name: Run tests

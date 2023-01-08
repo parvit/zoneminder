@@ -56,7 +56,6 @@ Group_Permission::Permission Group_Permission::getPermission(int monitor_id) {
     Debug(1, "Not loading monitor Ids");
   }
   if (monitor_ids.empty()) {
-    Debug(1, "No monitor ids... is group empty?");
     return PERM_INHERIT;
   }
 
