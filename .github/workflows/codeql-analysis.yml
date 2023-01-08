@@ -48,12 +48,18 @@ jobs:
         # By default, queries listed here will override any specified in a config file. 
         # Prefix the list here with "+" to use these queries and those in the config file.
         # queries: ./path/to/local/query, your-org/your-repo/queries@main
+        
+    - name: Check packages
+      run: |
+        sudo cat /var/log/dist-upgrade/apt.log
 
     - name: Clean install dependencies and build
       run: |
         git submodule init
         git submodule update --init --recursive
         sudo apt-get update
+        sudo apt-get autoremove
+        sudo apt-get install -f
         sudo apt-get install libavcodec-dev libavformat-dev libavutil-dev libswresample-dev libswscale-dev libjwt-gnutls-dev libavdevice-dev
         sudo apt-get install libbz2-dev libcurl4-gnutls-dev libjpeg-turbo8-dev libturbojpeg0-dev
         sudo apt-get install default-libmysqlclient-dev libpcre3-dev libpolkit-gobject-1-dev libv4l-dev libvlc-dev
