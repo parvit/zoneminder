@@ -67,12 +67,13 @@ jobs:
         sudo apt-get install libwww-perl libdata-uuid-perl libssl-dev libcrypt-eksblowfish-perl libdata-entropy-perl
         echo --1
         sudo apt-get -qq install libboost-dev libboost-all-dev 
-        libsoci-core4.0 libsoci-dev 
         echo --2
-        sudo apt-get -qq install libsoci-postgresql4.0 libsoci-mysql4.0 
+        sudo apt-get -qq install libsoci-core4.0 libsoci-dev 
         echo --3
-        sudo apt-get -qq install libssl-dev libjwt-dev
+        sudo apt-get -qq install libsoci-postgresql4.0 libsoci-mysql4.0 
         echo --4
+        sudo apt-get -qq install libssl-dev libjwt-dev
+        echo --5
         DEBIAN_FRONTEND=noninteractive sudo apt-get -qq install -y --no-install-recommends postgresql-14 postgresql-client-common postgresql-common postgresql-server-dev-all
         
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
