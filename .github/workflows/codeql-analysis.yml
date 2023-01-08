@@ -62,6 +62,7 @@ jobs:
         sudo apt-get install default-libmysqlclient-dev libpcre3-dev libpolkit-gobject-1-dev libv4l-dev libvlc-dev
         sudo apt-get install libdate-manip-perl libdbd-mysql-perl libphp-serialization-perl libsys-mmap-perl
         sudo apt-get install libwww-perl libdata-uuid-perl libssl-dev libcrypt-eksblowfish-perl libdata-entropy-perl
+        sudo apt-mark unhold $(apt-mark showhold)
         DEBIAN_FRONTEND=noninteractive sudo apt-get -qq install -y --no-install-recommends postgresql-14 postgresql-client-common postgresql-common postgresql-server-dev-all
         echo --1
         sudo apt-get -qq install libboost-dev libboost-all-dev libssl-dev libjwt-dev
