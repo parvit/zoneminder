@@ -1,9 +1,6 @@
 name: CI Fedora 36
 
 on:
-  push:
-    branches:
-      - '*'
   pull_request:
     branches: [ master ]
 
