@@ -49,20 +49,23 @@ jobs:
         # Prefix the list here with "+" to use these queries and those in the config file.
         # queries: ./path/to/local/query, your-org/your-repo/queries@main
         
-    - name: Clean install dependencies and build
+    - name: Install
       run: |
         git submodule init
         git submodule update --init --recursive
         sudo apt-get update
         sudo apt-get autoremove
+        sudo apt-get dist-upgrade -f
         sudo apt-get install -f
+        
+    - name: Clean install dependencies and build
+      run: |
         sudo apt-get install libavcodec-dev libavformat-dev libavutil-dev libswresample-dev libswscale-dev libjwt-gnutls-dev libavdevice-dev
         sudo apt-get install libbz2-dev libcurl4-gnutls-dev libjpeg-turbo8-dev libturbojpeg0-dev
         sudo apt-get install default-libmysqlclient-dev libpcre3-dev libpolkit-gobject-1-dev libv4l-dev libvlc-dev
         sudo apt-get install libdate-manip-perl libdbd-mysql-perl libphp-serialization-perl libsys-mmap-perl
         sudo apt-get install libwww-perl libdata-uuid-perl libssl-dev libcrypt-eksblowfish-perl libdata-entropy-perl
-        sudo apt-get -qq install libboost-dev libboost-all-dev libsoci-core4.0 libsoci-dev libsoci-core4.0 libsoci-postgresql4.0 libsoci-mysql4.0 libssl-dev libjwt-dev || true
-        sudo cat /var/log/apt/term.log
+        sudo apt-get -qq install libboost-dev libboost-all-dev libsoci-core4.0 libsoci-dev libsoci-core4.0 libsoci-postgresql4.0 libsoci-mysql4.0 libssl-dev libjwt-dev
         DEBIAN_FRONTEND=noninteractive sudo apt-get -qq install -y --no-install-recommends postgresql-14 postgresql-client-common postgresql-common postgresql-server-dev-all
         
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
