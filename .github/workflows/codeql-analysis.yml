@@ -66,9 +66,11 @@ jobs:
         sudo apt-get install libdate-manip-perl libdbd-mysql-perl libphp-serialization-perl libsys-mmap-perl
         sudo apt-get install libwww-perl libdata-uuid-perl libssl-dev libcrypt-eksblowfish-perl libdata-entropy-perl
         sudo apt-get -qq install libboost-dev libboost-all-dev libsoci-core4.0 libsoci-dev libsoci-core4.0 libsoci-postgresql4.0 libsoci-mysql4.0 libssl-dev libjwt-dev || true
+        echo --1
         sudo apt-get check
-        sudo aptitude search "?broken"
+        echo --2
         sudo apt-get install --fix-broken
+        echo --3
         sudo apt-get -qq install libboost-dev libboost-all-dev libsoci-core4.0 libsoci-dev libsoci-core4.0 libsoci-postgresql4.0 libsoci-mysql4.0 libssl-dev libjwt-dev
         # DEBIAN_FRONTEND=noninteractive sudo apt-get -qq install -y --no-install-recommends postgresql-14 postgresql-client-common postgresql-common postgresql-server-dev-all
         
